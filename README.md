@@ -15,10 +15,10 @@ This app is for older adults who struggle to keep up with constantly changing ap
 nextStep was inspired from previous experiences with watching older folk struggle to keep up with the ever-changing landscapes of apps. Features moves, buttons were redesigned, and simple tasks became frustrating. We realize that many older adults dont need a ful lesson, just a nudge towards the next step. That idea grew into nextStep. 
 
 ##Core team 
-Jasmin Contreras - github -> jsc9859
-Solomon Kim - github -> Solirss
-Nalin - Github -> NalNal
-Hanson - Github -> Hansonhzh
+* Jasmin Contreras - github -> jsc9859
+* Solomon Kim - github -> Solirss
+* Nalin - Github -> NalNar
+* Hanson - Github -> Hansonhzh
 
 Link to contribution
 https://github.com/agile-students-fall2026/generic-mern-stack-project-nextStep/blob/master/CONTRIBUTING.md
