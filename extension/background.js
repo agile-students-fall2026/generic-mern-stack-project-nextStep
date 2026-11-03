@@ -12,7 +12,7 @@ async function findTabs(website) {
 const website = '*://*.youtube.com/watch*';
 const not_open = "https://www.youtube.com/watch?v=jIxs89D9MDY&list=RDjIxs89D9MDY";
 
-// goToSite fucntion takes the user to the website if the tab is already open, otherwise it opens a new tab with the website
+// goToSite returns the tab id of the website if it is already open, or opens a new tab and returns the tab id of the new tab
 async function goToSite() {
     // Check if the tab is already open
     const tabs = await findTabs(website);
@@ -20,17 +20,28 @@ async function goToSite() {
     if (tabs.length > 0) {
         // If the tab is already open, switch to that tab
         chrome.tabs.update(tabs[0].id, { active: true });
-        return 'Tab is already open, switching to that tab.';
+        // Return the tab id so we can use it for injection
+        return tabs[0].id;
     }
 
     // If the tab is not open, open a new tab with the website
-    await chrome.tabs.create({ url: not_open }), {active: true};
-    return 'Tab is not open, opening a new tab with YouTube video on'
-}
+    const newTab = await chrome.tabs.create({ url: not_open });
+    // Return the tab id so we can use it for injection
+    return newTab.id}
 
+// Injects a script to web to draw an arrow for guidance
+async function drawArrow(){
+    // Retriving the side id 
+    const tabId = goToSite();
+    // Injecting the script to draw an arrow on the tab
+    await chrome.scripting.executeScript({
+        targe: {tabId},
+        files: ['direction.js']
+    })
+}
 
 // Listen for messages from the Bridge or front-end
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    sendResponse(goToSite());
+    drawArrow();
     return true;
 })

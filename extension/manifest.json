@@ -2,7 +2,6 @@
     "manifest_version": 3,
     "name": "nextStep",
     "version": "1.0",
-    "permissions": ["tabs"],
     "background": {
       "service_worker": "background.js"
     },
@@ -11,6 +10,10 @@
         "matches": ["http://localhost/*"],
         "js": ["bridge.js"]
       }
+    ],
+    "permissions": ["tabs", "scripting"],
+    "host_permissions": [
+      "https://www.youtube.com/*"
     ]
   }
   
