@@ -2,5 +2,5 @@
 // This connects the front-end and background scripts
 
 chrome.runtime.sendMessage({ pattern: '*://*.youtube.com/*' }, tabs => {
-    console.log('tabs found:', tabs)
-  })
+  console.log('tabs found:', tabs)
+})
