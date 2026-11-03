@@ -1,0 +1,86 @@
+import { useRef, useState, useEffect } from "react";
+
+// Task objects
+// This is a list of tasks that the user can try. Each task has an id, title, and url.
+const TASKS = [
+    {
+        id: 'youtube-fullscreen',
+        title: 'How to make a YouTube video fullscreen',
+        url: 'https://www.youtube.com'
+    },
+    {
+        id: 'youtube-captions',
+        title: 'How to turn on YouTube captions',
+        url: 'https://www.youtube.com'
+    },
+    {
+        id: 'youtube-volumn-up',
+        title: 'How to volumn up YouTube video',
+        url: 'https://www.youtube.com'
+    },
+    {
+        id: 'youtube-mute',
+        title: 'How to mute a YouTube video',
+        url: 'https://www.youtube.com'
+    },
+    {
+        id: 'youtube-history',
+        title: 'How to see a YouTube video history',
+        url: 'https://www.youtube.com'
+    },
+    {
+        id: 'youtube-subscriptions',
+        title: 'How to see a YouTube subscriptions',
+        url: 'https://www.youtube.com'
+    },
+    {
+        id: 'amazon-orders',
+        title: 'How to see a Amazon orders',
+        url: 'https://www.amazon.com/'
+    },
+    {
+        id: 'amazon-search',
+        title: 'How to how to search on Amazon',
+        url: 'https://www.amazon.com/'
+    },
+    {
+        id: 'amazon-account',
+        title: 'How to see a Amazon account',
+        url: 'https://www.amazon.com/'
+    },
+    {
+        id: 'facebook-marketplace',
+        title: 'How to goto Facebook marketplace',
+        url: 'https://www.facebook.com/'
+    },
+]
+
+
+const Home = () => {
+
+    // Moves user to the task webpage.
+    function moveUser(task){
+        window.postMessage({from: 'nextStep',taskID: task.id})
+    }
+
+    return (
+        <>
+            <div className="home-container">
+                <h1>Welcome to NextStep</h1>
+                <p>Here are some tasks you can try:</p>
+                <ul>
+                     {/* Render the tasks as a list of links */}
+                    {TASKS.map((task) => (
+                        <li key={task.id}>
+                            <button onClick={() => moveUser(task)}>
+                                {task.title}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </>
+    )
+}
+
+export default Home
