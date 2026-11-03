@@ -10,7 +10,7 @@ async function findTabs(website) {
 
 // For now, user can only go to youtube.com/watch so we can have something for sprint 1 stand up
 const website = '*://*.youtube.com/watch*';
-const not_open = "https://www.youtube.com/watch?v=jIxs89D9MDY&list=RDjIxs89D9MDY";
+const not_open = "https://www.youtube.com/watch?v=jIxs89D9MDY";
 
 // goToSite returns the tab id of the website if it is already open, or opens a new tab and returns the tab id of the new tab
 async function goToSite() {
