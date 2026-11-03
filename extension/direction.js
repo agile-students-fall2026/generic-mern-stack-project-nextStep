@@ -7,9 +7,7 @@ console.log('button', button)
 
 
 if (button){
-    // variable location keeps the location of the button on the screen. It is used to draw an arrow to the button.
-    const location = button.getBoundingClientRect()
-    
+    // variable location keeps the location of the button on the screen. It is used to draw an arrow to the button.    
     // This is to make the button more visible to the user. It will draw a red outline around the button.
     if (button){
         button.style.outline = '5px solid red'
@@ -23,8 +21,6 @@ if (button){
     
     arrow.style.cssText = `
         position: fixed;
-        left: ${location.left - 360}px;
-        top: ${location.top - 8}px;
         padding: 12px 16px;
         font: 20px system-ui, sans-serif;
         color: white;
@@ -34,4 +30,18 @@ if (button){
         pointer-events: none;
     `
     document.body.appendChild(arrow)
+
+    // The screen changes size when the user resizes the window, so we need to reposition the arrow when the window is resized.
+    // The screen also changes after loading the website, therefore needs to resize the arrow button.
+    function place() {
+        const location = button.getBoundingClientRect()
+        arrow.style.left = `${location.left - 360}px`
+        arrow.style.top = `${location.top - 8}px`
+    }
+
+    place();
+    // This function is to resize the button when scroll occurs
+    window.addEventListener('scroll',place)
+    // This function is to resize the button when resize occurs. 
+    window.addEventListener('resize',place)
 }
