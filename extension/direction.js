@@ -5,5 +5,5 @@ const button = document.querySelector('.ytp-fullscreen-button')
 console.log('button', button)
 
 if (button){
-    buttone.style.outline = '5px solid red'
+    button.style.outline = '5px solid red'
 }

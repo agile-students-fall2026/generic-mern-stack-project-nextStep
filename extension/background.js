@@ -32,10 +32,10 @@ async function goToSite() {
 // Injects a script to web to draw an arrow for guidance
 async function drawArrow(){
     // Retriving the side id 
-    const tabId = goToSite();
+    const tabId = await goToSite();
     // Injecting the script to draw an arrow on the tab
     await chrome.scripting.executeScript({
-        targe: {tabId},
+        target: {tabId},
         files: ['direction.js']
     })
 }
