@@ -59,8 +59,8 @@ const TASKS = [
 const Home = () => {
 
     // Moves user to the task webpage.
-    function moveUser(task){
-        window.postMessage({from: 'nextStep',taskID: task.id})
+    function moveUser(task) {
+        window.postMessage({ from: 'nextStep', taskID: task.id })
     }
 
     return (
@@ -69,7 +69,7 @@ const Home = () => {
                 <h1>Welcome to NextStep</h1>
                 <p>Here are some tasks you can try:</p>
                 <ul>
-                     {/* Render the tasks as a list of links */}
+                    {/* Render the tasks as a list of links */}
                     {TASKS.map((task) => (
                         <li key={task.id}>
                             <button onClick={() => moveUser(task)}>
@@ -78,6 +78,11 @@ const Home = () => {
                         </li>
                     ))}
                 </ul>
+                <button
+                    className="menu button"
+                    onClick={() => navigate('/menu')}>
+                    Menu
+                </button>
             </div>
         </>
     )

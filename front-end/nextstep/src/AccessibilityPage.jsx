@@ -41,6 +41,11 @@ function AccessibilityPage() {
 
                 </section>
             </main>
+            <button
+                className="menu button"
+                onClick={() => navigate('/menu')}>
+                Menu
+            </button>
         </div>
     )
 }

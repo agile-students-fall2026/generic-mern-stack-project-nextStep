@@ -153,6 +153,11 @@ function ProfilePage() {
                     Delete Profile
                 </button>
             </main>
+            <button
+                className="menu button"
+                onClick={() => navigate('/menu')}>
+                Menu
+            </button>
         </div>
     )
 
