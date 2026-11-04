@@ -35,7 +35,7 @@ function ProfilePage() {
 
     const handleDelete = () => {    //tracks is user attempts to delete profile 
         if (window.confirm('Delete your profile? This cannot be undone.')) {
-            navigate('/home')   //navigates to home page 
+            navigate('/login')   //navigates to home page 
         }
     }
 
