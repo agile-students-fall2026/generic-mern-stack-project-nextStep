@@ -1,35 +1,37 @@
 // ref: https://www.greatfrontend.com/react-interview-playbook/react-signup-form-example
 // import './css/signup.css'
-import {useState} from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
-  const[message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     // Prevent default behavior, which is a navigation
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    try{
-    const response = await fetch('/users/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        // all the data to send/save to db
-        email: formData.get('userEmail'),
-        password: formData.get('userPassword'),
-        name: formData.get('name'),
-        username: formData.get('username'),
-        age: formData.get('age'),
+    try {
+      const response = await fetch('/users/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          // all the data to send/save to db
+          email: formData.get('userEmail'),
+          password: formData.get('userPassword'),
+          name: formData.get('name'),
+          username: formData.get('username'),
+          age: formData.get('age'),
 
-      }),
-    });
+        }),
+      });
 
-    // if (!response.ok) {
-    //   // Handle error response
-    //   throw new Error('Signup failed. Please check your details and try again.');
-    // }
-    // Handle success flow
+      // if (!response.ok) {
+      //   // Handle error response
+      //   throw new Error('Signup failed. Please check your details and try again.');
+      // }
+      // Handle success flow
       setMessage('Account created successfully!');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Signup failed.');
@@ -38,7 +40,7 @@ function SignUp() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div role = "status"> {message} </div>
+      <div role="status"> {message} </div>
       <label htmlFor="name-input">Name</label>
       <input
         id="name-input"
@@ -81,7 +83,7 @@ function SignUp() {
       <div id="password-hint">
         Your password must be at least 8 characters long.
       </div>
-      <button type = "submit">Sign up</button>
+      <button type="submit" onClick={() => navigate('/home')}>Sign up</button>
     </form>
   );
 }
