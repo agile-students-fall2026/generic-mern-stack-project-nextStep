@@ -45,6 +45,7 @@ const Login = () => {
                 setErrMsg('Unauthorized');
             } else {
                 setErrMsg('Login Failed');
+                // <Link to="/home">Go to Home</Link>
             }
             errRef.current.focus();
         }
@@ -57,7 +58,7 @@ const Login = () => {
                     <h1>You are logged in!</h1>
                     <br />
                     <p>
-                        <a href="#">Go to Home</a>
+                        <Link to="/home">Go to Home</Link>
                     </p>
                 </section>
             ) : (
@@ -90,7 +91,8 @@ const Login = () => {
                             value={pwd}
                             required
                         />
-                        <button>Sign In</button>
+                        {/* <button>Sign In</button> */}
+                        <Link to="/home"> Sign In </Link>
                     </form>
                     <p>
                         Need an Account?<br />
