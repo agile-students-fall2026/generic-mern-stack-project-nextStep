@@ -25,11 +25,20 @@ function AccessibilityPage() {
                 {/* Dark Mode controlled */}
                 <section>
                     <h2>Dark Mode</h2>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={settings.darkMode}
+                            onChange={e => update({ darkMode: e.target.checked })} />
+                        On
+                    </label>
                 </section>
 
                 {/* Contrast mode controlled */}
                 <section>
                     <h2>Low Contrast</h2>
+
                 </section>
             </main>
         </div>
