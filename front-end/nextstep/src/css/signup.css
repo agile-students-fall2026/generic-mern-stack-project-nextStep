@@ -1,0 +1,6 @@
+label[for="username-input"], label[for="name-input"]
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
