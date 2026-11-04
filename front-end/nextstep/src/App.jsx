@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-d
 import Login from './Login'
 import SignUp from './SignUp'
 import Home from './Home'
+import ProfilePage from './ProfilePage'
 import { AuthProvider } from './assets/AuthProvider'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchUserProfile } from './fakeApi'
 import useAccessibility from './useAccessibility'
-import './pages.css'
+import './css/pages.css'
 
 function ProfilePage() {
     useAccessibility()  //loading the settings user inputed 
