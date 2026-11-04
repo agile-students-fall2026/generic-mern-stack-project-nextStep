@@ -38,7 +38,13 @@ function AccessibilityPage() {
                 {/* Contrast mode controlled */}
                 <section>
                     <h2>Low Contrast</h2>
-
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={settings.lowContrast}
+                            onChange={e => update({ lowContrast: e.target.checked })} />
+                        On
+                    </label>
                 </section>
             </main>
         </div>
