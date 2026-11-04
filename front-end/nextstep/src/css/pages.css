@@ -1,0 +1,53 @@
+/* Main page layout */
+.screen {}
+
+.content {}
+
+/* Page headings */
+.page-title {}
+
+.profile-title {}
+
+/* Loading message */
+.loading {}
+
+/* Form fields */
+.field {}
+
+.field-label {}
+
+.field-row {}
+
+/* Buttons */
+.link-btn {}
+
+.btn {}
+
+.btn-danger {}
+
+/* Menu */
+.menuBar {}
+
+/* accessibilities page modifications */
+
+body.dark-mode {
+    background-color: #222;
+    color: white;
+}
+
+body.dark-mode .scren {
+    background-color: #222;
+    color: white;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background-color: #333;
+    color: white;
+    border: 1px solid white;
+}
+
+body.dark-mode button {
+    background-color: #333;
+    color: white;
+}
