@@ -5,6 +5,7 @@ import SignUp from './SignUp'
 import Home from './Home'
 import ProfilePage from './ProfilePage'
 import AccessibilityPage from './AccessibilityPage'
+import SettingsPage from './SettingsPage'
 import { AuthProvider } from './assets/AuthProvider'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/accessibility" element={<AccessibilityPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

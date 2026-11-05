@@ -2,6 +2,7 @@
 // import './css/signup.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './css/pages.css'
 
 function SignUp() {
   const [message, setMessage] = useState('');

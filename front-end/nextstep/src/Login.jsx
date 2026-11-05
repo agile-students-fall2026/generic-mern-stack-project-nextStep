@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./assets/AuthProvider";
 import { Link } from 'react-router-dom';
+import './css/pages.css'
 
 import axios from 'axios';
 const LOGIN_URL = '/auth';
@@ -53,68 +54,65 @@ const Login = () => {
 
     return (
         <div className="screen auth-screen">
-            <main className='content auth-content'>
+            <main className='screen auth-content'>
                 <header className='auth-header'>
                     <h1 className='auth-logo'>NextStep</h1>
                     <p className='auth-tagline'>Keeping you in the loop</p>
                 </header>
-
-                {
-                    success ? (
-                        <section className="auth-success">
-                            <h1 className="auth-title">You are logged in!</h1>
-                            <br />
-                            <p>
-                                <Link className="btn btn-primary" to="/home">
-                                    Go to Home</Link>
-                            </p>
-                        </section>
-                    ) : (
-                        <section className="auth-section">
-                            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                            <h1>Sign In</h1>
-                            <form className="auth-form" onSubmit={handleSubmit}>
-                                <label className='field' htmlFor="username">Username:</label>
-                                <input
-                                    className="form-input"
-                                    type="text"
-                                    id="username"
-                                    ref={userRef}
-                                    autoComplete="off"
-                                    onChange={(e) => {
-                                        setUser(e.target.value);
-                                        setErrMsg('');
-                                    }}
-                                    value={user}
-                                    required
-                                />
-
-                                <label className="field" htmlFor="password">Password:</label>
-                                <input
-                                    className="form-input"
-                                    type="password"
-                                    id="password"
-                                    onChange={(e) => {
-                                        setPwd(e.target.value);
-                                        setErrMsg('');
-                                    }}
-                                    value={pwd}
-                                    required
-                                />
-                                {/* <button>Sign In</button> */}
-                                <Link className="btn btn-primary" to="/home"> Sign In </Link>
-                            </form>
-                            <p>
-                                Need an Account?<br />
-                                <span className="line">
-                                    <Link className="auth-link" to="/signup">Sign Up</Link>
-                                </span>
-                            </p>
-                        </section>
-                    )
-                }
             </main>
+            {
+                success ? (
+                    <section className="auth-success">
+                        <h1>You are logged in!</h1>
+                        <br />
+                        <p>
+                            <Link className="btn btn-primary" to="/home">Go to Home</Link>
+                        </p>
+                    </section>
+                ) : (
+                    <section>
+                        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                        <h1>Sign In</h1>
+                        <form onSubmit={handleSubmit}>
+                            <label className='field' htmlFor="username">Username:</label>
+                            <input
+                                type="text"
+                                id="username"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => {
+                                    setUser(e.target.value);
+                                    setErrMsg('');
+                                }}
+                                value={user}
+                                required
+                            />
+
+                            <label className="field" htmlFor="password">Password:</label>
+                            <input
+                                type="password"
+                                id="password"
+                                onChange={(e) => {
+                                    setPwd(e.target.value);
+                                    setErrMsg('');
+                                }}
+                                value={pwd}
+                                required
+                            />
+                            {/* <button>Sign In</button> */}
+                            <Link className="btn btn-primary" to="/home"> Sign In </Link>
+                        </form>
+                        <p>
+                            Need an Account?<br />
+                            <span className="line">
+                                <Link className="auth-link" to="/signup">Sign Up</Link>
+                            </span>
+                        </p>
+                    </section>
+                )
+            }
         </div>
+
     )
 }
 
