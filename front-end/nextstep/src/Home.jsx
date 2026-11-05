@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom'
+import './css/pages.css'
 
 // Task objects
 // This is a list of tasks that the user can try. Each task has an id, title, and url.
@@ -66,20 +68,30 @@ const Home = () => {
     return (
         <>
             <div className="home-container">
-                <h1>Welcome to NextStep</h1>
-                <p>Here are some tasks you can try:</p>
-                <ul>
-                    {/* Render the tasks as a list of links */}
-                    {TASKS.map((task) => (
-                        <li key={task.id}>
-                            <button onClick={() => moveUser(task)}>
-                                {task.title}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <main className="content home-content">
+                    <header className="page-header">
+                        <h1 className="page-title">Welcome to NextStep</h1>
+                    </header>
+                    <section className="home-welcome">
+                        <h2 className="home-heading">What would you like to learn today?</h2>
+                        <p className="page-description">Choose a task below to get started</p>
+                    </section>
+
+                    <section className="home-tasks">
+                        <ul className="task-list">
+                            {/* Render the tasks as a list of links */}
+                            {TASKS.map((task) => (
+                                <li key={task.id}>
+                                    <button onClick={() => moveUser(task)}>
+                                        {task.title}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </section>
+                </main>
                 <button
-                    className="menu button"
+                    className="menu-button"
                     onClick={() => navigate('/menu')}>
                     Menu
                 </button>

@@ -62,21 +62,27 @@ function ProfilePage() {
 
     if (!form) {    //if there is not data retrieved, profile processing i loaded
         return (
-            <div className="screen">
-                <main className="content">
-                    <h1 className="profile-title">Profile</h1>
-                    <p className="loading">Loading your profile.</p>
+            <div className="screen profile-screen">
+                <main className="content profile-content">
+                    <h1 className="page-title">Profile</h1>
+                    <p className="loading">Loading your profile...</p>
                 </main>
-                <h1 className="menuBar">Menu</h1>
             </div>
         )
     }
 
 
     return (
-        <div className='screen'>
-            <main className="content">
-                <h1 className="page-title">Profile</h1>
+        <div className='screen profile-screen'>
+            {/*back button to return to settings page */}
+            <button type="button" className="back-button" onClick={() => navigate('/menu')}>
+                Back
+            </button>
+            <main className="content profile-content">
+                <header className='page-header'>
+                    <h1 className="page-title">Profile</h1>
+                </header>
+                <p className="page-description">Update your personal information.</p>
                 <form onSubmit={handleSave}>
                     <label className="field">
                         <span className="field-label">Edit Username</span>
@@ -139,7 +145,7 @@ function ProfilePage() {
                     </label>
 
                     {isDirty && (
-                        <button type="submit" className="btn">
+                        <button type="submit" className="btn btn-primary">
                             Save changes
                         </button>
                     )}
@@ -154,15 +160,12 @@ function ProfilePage() {
                 </button>
             </main>
             <button
-                className="menu button"
+                className="menu-button"
                 onClick={() => navigate('/menu')}>
                 Menu
             </button>
         </div>
     )
-
-
-
 }
 
 export default ProfilePage

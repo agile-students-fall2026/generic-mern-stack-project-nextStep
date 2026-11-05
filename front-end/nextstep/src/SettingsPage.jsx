@@ -4,11 +4,17 @@ import './css/pages.css'
 function SettingsPage() {
     const navigate = useNavigate()
     return (
-        <div className="screen">
-            <main className="content">
-                <h1 className="page-title">Settings</h1>
-                <button onClick={() => navigate('/profile')}>
-                    Profile
+        <div className="screen settings-screen">
+            {/*back button to return to menu page */}
+            <button type="button" className onClick={() => navigate('/menu')}>
+                Back
+            </button>
+            <main className="content settings-content">
+                <header className='page-header'>
+                    <h1 className="page-title">Settings</h1>
+                </header>
+                <button onClick={() => navigate('/accessibility')}>
+                    Accessibility
                 </button>
 
                 <button onClick={() => navigate('/login')}>
@@ -16,7 +22,7 @@ function SettingsPage() {
                 </button>
             </main>
             <button
-                className="menu button"
+                className="menu-button"
                 onClick={() => navigate('/menu')}>
                 Menu
             </button>

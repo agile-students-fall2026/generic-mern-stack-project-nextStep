@@ -30,12 +30,13 @@
 
 /* accessibilities page modifications */
 
+/* dark mode */
 body.dark-mode {
     background-color: #222;
     color: white;
 }
 
-body.dark-mode .scren {
+body.dark-mode .screen {
     background-color: #222;
     color: white;
 }
@@ -50,4 +51,47 @@ body.dark-mode select {
 body.dark-mode button {
     background-color: #333;
     color: white;
+}
+
+/* low contrast */
+body.low-contrast {
+    background-color: #eeeeee;
+    color: #666666;
+}
+
+body.low-contrast .screen {
+    background-color: #eeeeee;
+    color: #666666
+}
+
+body.low-contrast input,
+body.low-contrast select {
+    background-color: #f5f5f5;
+    color: #666666;
+    border: 1px solid #aaaaaa;
+}
+
+body.low-contrast button {
+    background-color: #dddddd;
+    color: #555555;
+    border: 1px solid #aaaaaa;
+}
+
+/* is user toggles both low contrast and dark mode */
+body.dark-mode.low-contrast .screen {
+    background-color: #333;
+    color: #bbbbbb;
+}
+
+body.dark-mode.low-contrast {
+    background-color: #333;
+    color: #bbbbbb;
+}
+
+body.dark-mode.low-contrast input,
+body.dark-mode.low-contrast select,
+body.dark-mode.low-contrast button {
+    background-color: #444;
+    color: #cccccc;
+    border: 1px solid #888;
 }
