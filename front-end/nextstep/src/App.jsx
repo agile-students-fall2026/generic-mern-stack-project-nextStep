@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-d
 import Login from './Login'
 import SignUp from './SignUp'
 import Home from './Home'
+import Menu from './Menu'
 import ProfilePage from './ProfilePage'
 import AccessibilityPage from './AccessibilityPage'
 import SettingsPage from './SettingsPage'
@@ -24,6 +25,7 @@ function App() {
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/task/:taskId" element={<TaskPage />} />
           <Route path="/request" element={<RequestPage />} />
+          <Route path ="/menu" element = {<Menu/>} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>
