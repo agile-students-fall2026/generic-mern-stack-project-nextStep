@@ -1,16 +1,33 @@
-import {useParams} from 'react-router-dom';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-// This page is the page that is shown when the user clicks on a task from the home page. 
-// It will show the task title and a button to start the task. 
+// Shows one step at a time for the task the user picked. Clicking the box moves on.
 
 const TaskPage = () => {
-    const {taskId} = useParams();
+    // Reads the id out of the URL /task/youtube-fullscreen
+    const { taskId } = useParams();
+    // Placeholder steps. Real screenshots come later.
+    const steps = ['Step 1', 'Step 2', 'Step 3'];
+    // useState remembers which step is showing. A plain variable would reset on every redraw.
+    const [current, setCurrent] = useState(0);
+    function nextStep() {
+        // 3 steps means positions 0, 1, 2, so stop at length - 1
+        if (current < steps.length - 1) {
+            setCurrent(current + 1);
+        }
+    }
 
-    return(
+    return (
         <div className="task-container">
-        <h1>Task: {taskId}</h1>
-    </div>
-    )
-}
+            <h1>Task: {taskId}</h1>
 
-export default TaskPage
+            <div className="step-screen" onClick={nextStep}>
+                <p>{steps[current]}</p>
+            </div>
+
+            <p>{current + 1} of {steps.length}</p>
+        </div>
+    );
+};
+
+export default TaskPage;
