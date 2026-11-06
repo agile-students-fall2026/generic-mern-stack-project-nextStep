@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './css/pages.css';
 
 // Shows one step at a time for the task the user picked. Clicking the box moves on.
 
