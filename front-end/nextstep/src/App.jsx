@@ -19,7 +19,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/accessibility" element={<AccessibilityPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route path='/settings' element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>
