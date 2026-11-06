@@ -15,13 +15,13 @@ function SettingsPage() {
                     </h1>
                 </header>
                 <section className="settings-options">
-                    <button className="settings-option" type="button" onClick={() => navigate('/accessibility')}>
+                    <button className="btn btn-secondary" type="button" onClick={() => navigate('/accessibility')}>
                         Accessability
                     </button>
 
-                    <button className="settings-option" type="button" onClick={() => navigate('/login')}>Log Out</button>
+                    <button className="btn btn-secondary" type="button" onClick={() => navigate('/login')}>Log Out</button>
 
-                    <button className="settings-option" type="button" onClick={() => navigate('/home')}>Back to Home</button>
+                    <button className="btn btn-secondary" type="button" onClick={() => navigate('/home')}>Back to Home</button>
 
                 </section>
             </main>
