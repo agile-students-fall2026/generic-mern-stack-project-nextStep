@@ -7,6 +7,8 @@ import ProfilePage from './ProfilePage'
 import AccessibilityPage from './AccessibilityPage'
 import SettingsPage from './SettingsPage'
 import { AuthProvider } from './assets/AuthProvider'
+import TaskPage from './TaskPage'
+import RequestPage from './requestpage'
 
 function App() {
   return (
@@ -19,7 +21,9 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/accessibility" element={<AccessibilityPage />} />
-          <Route path='/settings' element={<SettingsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/task/:taskId" element={<TaskPage />} />
+          <Route path="/request" element={<RequestPage />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>
