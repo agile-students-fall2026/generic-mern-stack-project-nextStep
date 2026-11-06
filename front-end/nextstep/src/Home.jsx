@@ -90,6 +90,8 @@ const Home = () => {
                             ))}
                         </ul>
                     </section>
+
+                    <button onClick={() => navigate('/request')}>Request a new how-to</button>
                 </main>
                 <button
                     className="menu-button"
