@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import './css/pages.css'
 
@@ -62,8 +62,9 @@ const Home = () => {
 
     // Moves user to the task webpage.
     function moveUser(task) {
-        window.postMessage({ from: 'nextStep', taskID: task.id })
+        navigate(`/task/${task.id}`);
     }
+    const navigate = useNavigate()
 
     return (
         <>
