@@ -12,9 +12,8 @@ export default function Menu(){
     </div>
     <ul className="menu-link">
         <li><Link className = "menu-page-button" to="/Home"> Home </Link></li>
-        <li><Link className = "menu-page-button" to="/AccessibilityPage"> Accessibility </Link></li>
-        <li><Link className = "menu-page-button" to="/ProfilePage"> Profile </Link></li>
-        <li><Link className = "menu-page-button" to="/SettingsPage"> Settings </Link></li>
+        <li><Link className = "menu-page-button" to="/profile"> Profile </Link></li>
+        <li><Link className = "menu-page-button" to="/settings"> Settings </Link></li>
         
     </ul>
     </>
