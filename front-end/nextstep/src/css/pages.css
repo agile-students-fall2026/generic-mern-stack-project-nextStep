@@ -133,11 +133,51 @@ body {
 }
 
 /* Menu */
-.menuBar {}
+.menu-button {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: block;
+    width: 90vw;
+    max-width: 440px;
+    min-height: 60px;
+
+    padding: 14px 20px;
+    background-color: #123264;
+    color: white;
+    border: 2px solid #123264;
+    border-radius: 0;
+
+    font: inherit;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.home-screen,
+.settings-screen,
+.accessibility-screen {
+    padding-bottom: 110px;
+}
+
+/* accessibility page */
+.accessibility-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.page-title {
+    margin: 0;
+    font-size: 1.75rem;
+    color: #123264
+}
 
 /* accessibilities page modifications */
 
-/* dark mode */
 body.dark-mode {
     background-color: #222;
     color: white;
