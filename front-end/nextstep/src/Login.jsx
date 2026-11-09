@@ -1,10 +1,11 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./assets/AuthProvider";
 import { Link } from 'react-router-dom';
+import useAccessibility from './useAccessibility';
 import './css/pages.css'
 import axios from 'axios';
 const LOGIN_URL = '/auth';
-
+useAccessibility();
 const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const userRef = useRef();

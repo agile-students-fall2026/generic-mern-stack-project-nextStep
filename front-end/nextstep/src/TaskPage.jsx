@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useAccessibility from './useAccessibility';
 import './css/pages.css';
 
 // Shows one step at a time for the task the user picked. Clicking the box moves on.
-
+useAccessibility();
 const TaskPage = () => {
     // Reads the id out of the URL /task/youtube-fullscreen
     const { taskId } = useParams();

@@ -8,7 +8,7 @@ function SettingsPage() {
 
     return (
         <div className="screen settings-screen">
-            <main className="content settings-content">
+            <main className="content menu-content">
                 <header className="page-header">
                     <h1 className="page-title">
                         Settings
@@ -28,7 +28,7 @@ function SettingsPage() {
             <button
                 type="button"
                 className="menu-button"
-                onClick={() => navigate('/home')}//CHANGE TO MENU OPTION
+                onClick={() => navigate('/menu')}
             >
                 Menu
             </button>
