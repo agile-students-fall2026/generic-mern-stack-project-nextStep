@@ -10,6 +10,9 @@ function AccessibilityPage() {
     return (
         <div className="screen accessibility-screen">
             <main className="content accessibility-content">
+                <button type="button" className="back-button" onClick={() => navigate('/settings')}>
+                    Back
+                </button>
                 <header className="page-header">
                     <h1 className="page-title">Accessibility</h1>
                 </header>
@@ -64,7 +67,7 @@ function AccessibilityPage() {
             <button
                 type="button"
                 className="menu-button"
-                onClick={() => navigate('/home')}//CHANGE TO MENU OPTION
+                onClick={() => navigate('/menu')}
             >
                 Menu
             </button>
