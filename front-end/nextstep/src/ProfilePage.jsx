@@ -74,19 +74,20 @@ function ProfilePage() {
 
     return (
         <div className='screen profile-screen'>
-            {/*back button to return to settings page */}
-            <button type="button" className="back-button" onClick={() => navigate('/menu')}>
-                Back
-            </button>
             <main className="content profile-content">
+                {/*back button to return to settings page */}
+                <button type="button" className="back-button" onClick={() => navigate('/menu')}>
+                    Back
+                </button>
                 <header className='page-header'>
                     <h1 className="page-title">Profile</h1>
                 </header>
                 <p className="page-description">Update your personal information.</p>
-                <form onSubmit={handleSave}>
+                <form className="profile-form" onSubmit={handleSave}>
                     <label className="field">
                         <span className="field-label">Edit Username</span>
                         <input
+                            className="form-input"
                             type="text"
                             value={form.username}
                             onChange={handleUsernameChange}
@@ -96,6 +97,7 @@ function ProfilePage() {
                     <label className="field">
                         <span className="field-label">Edit Name</span>
                         <input
+                            className="form-input"
                             type="text"
                             value={form.name}
                             onChange={handleNameChange}
@@ -105,6 +107,7 @@ function ProfilePage() {
                     <label className="field">
                         <span className="field-label">Edit Email</span>
                         <input
+                            className="form-input"
                             type="email"
                             value={form.email}
                             onChange={handleEmailChange}
@@ -114,6 +117,7 @@ function ProfilePage() {
                     <label className="field">
                         <span className="field-label">Edit Age</span>
                         <input
+                            className="form-input"
                             type="number"
                             value={form.age}
                             onChange={handleAgeChange}
@@ -125,6 +129,7 @@ function ProfilePage() {
 
                         <div className="field-row">
                             <input
+                                className="form-input"
                                 name="password"
                                 type={showPassword ? "text" : "password"}
                                 value={form.password}

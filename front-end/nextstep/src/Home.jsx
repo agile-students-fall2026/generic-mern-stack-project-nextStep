@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
+import useAccessibility from './useAccessibility';
 import './css/pages.css'
 
+useAccessibility();
 // Task objects
 // This is a list of tasks that the user can try. Each task has an id, title, and url.
 const TASKS = [
@@ -68,7 +70,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="home-container">
+            <div className="screen home-screen home-container">
                 <main className="content home-content">
                     <header className="page-header">
                         <h1 className="page-title">Welcome to NextStep</h1>
@@ -82,8 +84,8 @@ const Home = () => {
                         <ul className="task-list">
                             {/* Render the tasks as a list of links */}
                             {TASKS.map((task) => (
-                                <li key={task.id}>
-                                    <button onClick={() => moveUser(task)}>
+                                <li key={task.id} className="task-item">
+                                    <button className="btn btn-secondary" onClick={() => moveUser(task)}>
                                         {task.title}
                                     </button>
                                 </li>
@@ -91,7 +93,7 @@ const Home = () => {
                         </ul>
                     </section>
 
-                    <button onClick={() => navigate('/request')}>Request a new how-to</button>
+                    <button className="btn request-button " onClick={() => navigate('/request')}>Request a new how-to</button>
                 </main>
                 <button
                     className="menu-button"

@@ -2,9 +2,11 @@
 // import './css/signup.css'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAccessibility from './useAccessibility';
 import './css/pages.css'
 
 function SignUp() {
+  useAccessibility();
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
@@ -42,10 +44,11 @@ function SignUp() {
   return (
     <div className="screen auth-screen">
       {/*back button to return to login page */}
-      <button type="button" className="back-button" onClick={() => navigate('/login')}>
-        Back
-      </button>
+
       <main className="content auth-content">
+        <button type="button" className="back-button" onClick={() => navigate('/login')}>
+          Back
+        </button>
         <header className="auth-header">
           <h1 className="auth-logo">
             NextStep

@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAccessibility from './useAccessibility';
 import './css/pages.css';
 
 // Page where the user asks for a how-to we don't have yet.
+useAccessibility();
 
 const RequestPage = () => {
     // keeps the text the user types. Needs useState because a regular
@@ -13,21 +15,26 @@ const RequestPage = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="screen">
-            <button onClick={() => navigate('/home')}>Back</button>
+        <div className="screen request-screen">
 
-            <main className="content">
-                <h1 className="page-title">Request a new how-to</h1>
-                <p className="page-description">Tell us what you want to learn.</p>
-
+            <main className="content request-content">
+                <button className="back-button" onClick={() => navigate('/home')}>Back</button>
+                <header className="page-header">
+                    <h1 className="page-title">Request a new how-to</h1>
+                    <p className="page-description">Tell us what you want to learn.</p>
+                </header>
                 {/* value shows the state, onChange updates it on every keystroke */}
-                <textarea
-                    rows="6"
-                    value={comment}
-                    onChange={(event) => setComment(event.target.value)}
-                />
+                <div className="request-form">
+                    <textarea
+                        id="request-comment"
+                        className="request-textarea"
+                        rows="6"
+                        value={comment}
+                        onChange={(event) => setComment(event.target.value)}
+                    />
 
-                <button onClick={() => navigate(`/home`)}>Send</button>
+                    <button className="btn btn-primary" onClick={() => navigate(`/home`)}>Send</button>
+                </div>
             </main>
         </div>
     );

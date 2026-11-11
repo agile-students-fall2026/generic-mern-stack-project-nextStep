@@ -30,8 +30,6 @@ body {
 
 .profile-title {}
 
-/* Loading message */
-.loading {}
 
 /* Form fields */
 .field {
@@ -65,19 +63,29 @@ body {
     display: block;
     width: 100%;
     min-height: 45px;
-    padding: 14px 18px;
+    padding: 16px 20px;
     border-radius: 0px;
     font: inherit;
     font-weight: 600;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    border: 2px solid #123264;
+    border-radius: 0;
 }
 
 .btn-primary {
     background-color: #123264;
     color: white;
     border: 2px solid #123264;
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: #123264;
+    border: 2px solid #b8c9e0;
+    text-align: left;
+    margin-bottom: 10px;
 }
 
 /* Sign in and Log in */
@@ -108,7 +116,7 @@ body {
 .auth-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
 }
 
 .auth-title {
@@ -120,7 +128,7 @@ body {
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 18px
+    gap: 12px
 }
 
 .auth-form .btn {
@@ -130,6 +138,134 @@ body {
 .auth-link {
     color: #7b839c;
     font-weight: 600;
+}
+
+/* home page */
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.home-welcome {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #c7d0df;
+}
+
+.request-button {
+    background-color: #eaf0f9;
+    color: #123264;
+    border: 2px dashed #123264;
+    text-align: center;
+    margin-top: 16px;
+    min-height: 60px;
+}
+
+.task-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.task-item {
+    width: 100%;
+}
+
+/* request page */
+.request-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.request-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.request-textarea {
+    width: 100%;
+    min-height: 180px;
+    padding: 16px;
+    background-color: #ffffff;
+    color: #1d2939;
+    border: 2px solid #b8c9e0;
+    font: inherit;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+/* back button */
+.back-button {
+    align-self: flex-start;
+    min-height: 48px;
+    padding: 10px 20px;
+    background-color: #eaf0f9;
+    color: #123264;
+    border: 2px solid #123264;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* profile page */
+
+.profile-screen {
+    padding-bottom: 110px;
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-form .form-input {
+    width: 100%;
+    min-height: 56px;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    color: #1d2939;
+    border: 2px solid #b8c9e0;
+    font: inherit;
+}
+
+.field-row {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.filed-row .form-input {
+    flex: 1;
+    min-width: 0;
+}
+
+.link-btn {
+    min-height: 56px;
+    padding: 12px 16px;
+    background-color: #eaf0f9;
+    border: 2px solid #123264;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: #fff1f1;
+    color: #b42318;
+    border: 2px solid #b42318;
+    min-height: 60px;
 }
 
 /* Menu */
@@ -157,6 +293,25 @@ body {
     z-index: 100;
 }
 
+.menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-link li {
+    width: 100%;
+}
+
+.menu-link .btn,
+.settings-options .btn {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
 .home-screen,
 .settings-screen,
 .accessibility-screen {
@@ -164,6 +319,7 @@ body {
 }
 
 /* accessibility page */
+
 .accessibility-content {
     display: flex;
     flex-direction: column;
@@ -176,9 +332,67 @@ body {
     color: #123264
 }
 
+.page-description {
+    margin: 0;
+}
+
+.accessibility-options {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.accessibility-option {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #c7d0df;
+}
+
+.accessibility-label {
+    margin: 0 0 14px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #123264;
+}
+
+.accessibility-select {
+    display: block;
+    width: 100%;
+    min-height: 56px;
+    padding: 12px;
+    background-color: #ffffff;
+    color: #1d2939;
+    border: 2px solid #123264;
+    border-radius: 0;
+    font: inherit;
+    cursor: pointer;
+}
+
+.accessibility-toggle {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 56px;
+    cursor: pointer;
+}
+
+.accessibility-checkbox {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    accent-color: #123264;
+}
+
+.accessibility-select:focus-visible,
+.accessibility-checkbox:focus-visible {
+    outline: 3px solid #f2a900;
+    outline-offset: 3px;
+}
+
 /* accessibilities page modifications */
 
-body.dark-mode {
+/* dark mode */
+body.dark-mode .home-welcome {
     background-color: #222;
     color: white;
 }
@@ -192,12 +406,31 @@ body.dark-mode input,
 body.dark-mode select {
     background-color: #333;
     color: white;
-    border: 1px solid white;
+    border: 2px solid white;
 }
 
 body.dark-mode button {
     background-color: #333;
     color: white;
+    border: 2px solid #888;
+}
+
+body.dark-mode .accessibility-option,
+body.dark-mode .menu-link .btn-secondary {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #888888;
+}
+
+body.dark-mode .accessibility-label,
+body.dark-mode .page-title,
+body.dark-mode .page-description,
+body.dark-mode .home-heading,
+body.dark-mode .home-welcome .page-description,
+body.dark-mode .auth-logo,
+body.dark-mode .auth-title,
+body.dark-mode .auth-tagline {
+    color: #ffffff;
 }
 
 /* low contrast */
@@ -215,13 +448,14 @@ body.low-contrast input,
 body.low-contrast select {
     background-color: #f5f5f5;
     color: #666666;
-    border: 1px solid #aaaaaa;
+    border: 2px solid #aaaaaa;
 }
 
-body.low-contrast button {
+body.low-contrast button.menu-button,
+body.low-contrast .menu-link .btn-secondary {
     background-color: #dddddd;
     color: #555555;
-    border: 1px solid #aaaaaa;
+    border: 2px solid #aaaaaa;
 }
 
 /* is user toggles both low contrast and dark mode */
@@ -237,11 +471,16 @@ body.dark-mode.low-contrast {
 
 body.dark-mode.low-contrast input,
 body.dark-mode.low-contrast select,
-body.dark-mode.low-contrast button {
+body.dark-mode.low-contrast button,
+body.dark-mode.low-contrast .profile-form .form-input,
+body.dark-mode.low-contrast .menu-link .btn-secondary {
     background-color: #444;
     color: #cccccc;
     border: 1px solid #888;
 }
+
+
+
 
 /* to handle larger screens */
 
@@ -257,14 +496,15 @@ body.dark-mode.low-contrast button {
 
 
 /* this is for menu not making menu css might in future*/
-.menu-page-heading{
+.menu-page-heading {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.menu-link{
-    list-style-type: none; 
+.menu-link,
+.settings-options {
+    list-style-type: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -274,8 +514,8 @@ body.dark-mode.low-contrast button {
     padding: 0;
 }
 
-.menu-page-button{
-    display:flex;
+.menu-page-button {
+    display: flex;
     font-family: monospace;
     color: white;
     background-color: #123264;
@@ -285,4 +525,17 @@ body.dark-mode.low-contrast button {
     border-radius: 5px;
     box-sizing: border-box;
     text-decoration: none;
+}
+
+.step-screen {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    border: 2px solid #333;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    cursor: pointer;
 }
