@@ -4,8 +4,9 @@ import useAccessibility from './useAccessibility';
 import './css/pages.css';
 
 // Shows one step at a time for the task the user picked. Clicking the box moves on.
-useAccessibility();
 const TaskPage = () => {
+    useAccessibility();
+
     // Reads the id out of the URL /task/youtube-fullscreen
     const { taskId } = useParams();
     // Placeholder steps. Real screenshots come later.
