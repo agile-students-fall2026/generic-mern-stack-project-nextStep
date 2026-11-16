@@ -5,8 +5,9 @@ import useAccessibility from './useAccessibility';
 import './css/pages.css'
 import axios from 'axios';
 const LOGIN_URL = '/auth';
-useAccessibility();
 const Login = () => {
+    useAccessibility();
+
     const { setAuth } = useContext(AuthContext);
     const userRef = useRef();
     const errRef = useRef();
