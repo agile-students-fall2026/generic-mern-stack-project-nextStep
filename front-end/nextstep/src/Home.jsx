@@ -1,9 +1,7 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom'
 import useAccessibility from './useAccessibility';
 import './css/pages.css'
 
-useAccessibility();
 // Task objects
 // This is a list of tasks that the user can try. Each task has an id, title, and url.
 const TASKS = [
@@ -61,6 +59,7 @@ const TASKS = [
 
 
 const Home = () => {
+    useAccessibility();
 
     // Moves user to the task webpage.
     function moveUser(task) {

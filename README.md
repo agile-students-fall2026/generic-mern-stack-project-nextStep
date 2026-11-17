@@ -23,3 +23,19 @@ nextStep was inspired from previous experiences with watching older folk struggl
 Link to contribution
 https://github.com/agile-students-fall2026/generic-mern-stack-project-nextStep/blob/master/CONTRIBUTING.md
 
+## Signup and login backend
+
+The React signup and login forms call the Express authentication API. To run
+the connected app locally, start each process in a separate terminal:
+
+1. In `back-end/`, run `npm install` once, then `PORT=3001 npm run dev` (API on
+   port 3001; override the existing `PORT` setting if needed).
+2. In `front-end/nextstep/`, run `npm install` once, then `npm run dev` (React on
+   port 5173). Vite proxies `/api` calls to the backend. If the API uses a
+   different port, set `VITE_API_PROXY_TARGET` to its base URL before starting
+   Vite (for example `http://localhost:3002`).
+
+The backend uses fake in-memory users, which reset when the backend restarts.
+See [back-end/readme.txt](./back-end/readme.txt) for endpoint details and
+references to the [Express routing guide](https://expressjs.com/en/guide/routing.html)
+and [JWT introduction](https://jwt.io/introduction).

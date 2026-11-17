@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAccessibility from './useAccessibility';
 import './css/pages.css'
+import api from './api';
 
 function SignUp() {
   useAccessibility();
@@ -16,28 +17,22 @@ function SignUp() {
 
     const formData = new FormData(event.currentTarget);
     try {
-      const response = await fetch('/users/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          // all the data to send/save to db
-          email: formData.get('userEmail'),
-          password: formData.get('userPassword'),
-          name: formData.get('name'),
-          username: formData.get('username'),
-          age: formData.get('age'),
-
-        }),
+      await api.post('/auth/signup', {
+        email: formData.get('userEmail'),
+        password: formData.get('userPassword'),
+        name: formData.get('name'),
+        username: formData.get('username'),
+        age: formData.get('age'),
       });
 
-      // if (!response.ok) {
-      //   // Handle error response
-      //   throw new Error('Signup failed. Please check your details and try again.');
-      // }
-      // Handle success flow
-      setMessage('Account created successfully!');
+      navigate('/login', {
+        state: { message: 'Account created successfully. Please sign in.' },
+      });
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Signup failed.');
+      setMessage(
+        error?.response?.data?.message ??
+        (error?.response ? 'Signup failed. Please check your details.' : 'Unable to reach the server.'),
+      );
     }
   }
 
@@ -105,6 +100,9 @@ function SignUp() {
             <input
               className="form-input"
               id="other-input"
+              min="0"
+              max="130"
+              step="1"
               name="age"
               required
               type="number"
@@ -112,7 +110,7 @@ function SignUp() {
             <p className="form-hint" id="password-hint">
               Your password must be at least 8 characters long.
             </p>
-            <button className="btn btn-primary" type="submit" onClick={() => navigate('/home')}>Sign up</button>
+            <button className="btn btn-primary" type="submit">Sign up</button>
 
           </form>
         </section>
