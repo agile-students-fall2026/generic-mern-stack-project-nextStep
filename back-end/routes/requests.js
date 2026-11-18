@@ -4,19 +4,19 @@ import jwt from 'jsonwebtoken';
 const router = express.Router();
 
 // Same secret auth.js uese to sign tokens.
-const jwtSecret = process.env.JWT_SECRET ?? 'default_secret';
+const jwtSecret = process.env.JWT_SECRET ?? 'development-only-secret-change-before-deploy';
 
 // Every request is stored in this variable. 
-const request = []
+const requests = []
 
 // Reads token and returns user's id
 function getUserId(req){
-    const header = req.get("authorization");
-    const token = header.replace("Bearer ", "");
+  const header = req.get("authorization") ?? "";
+  const token = header.replace("Bearer ", "");
     try{
         const payload = jwt.verify(token, jwtSecret);
-        return payload.userId;
-    }catch (err){
+        return payload.sub;
+      }catch (err){
         return null;
     }
 }
