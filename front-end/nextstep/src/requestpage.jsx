@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import AuthContext from './assets/AuthProvider';
 import api from './api';
 
+// Page where the user asks for a how-to we don't have yet.
 
 // Page where the user asks for a how-to we don't have yet.
 const RequestPage = () => {
@@ -19,6 +20,7 @@ const RequestPage = () => {
         navigate('/request-history');
     }
     
+
     // keeps the text the user types. Needs useState because a regular
     // variable would go back to empty every time React redraws the page.
     const [comment, setComment] = useState('');
