@@ -18,6 +18,7 @@ function SettingsPage() {
                     <button className="btn btn-secondary" type="button" onClick={() => navigate('/accessibility')}>
                         Accessability
                     </button>
+                    <button className="btn btn-secondary" type="button" onClick={() => navigate('/request-history')}>My Requests</button>
 
                     <button className="btn btn-secondary" type="button" onClick={() => navigate('/login')}>Log Out</button>
 

@@ -10,6 +10,8 @@ import SettingsPage from './SettingsPage'
 import { AuthProvider } from './assets/AuthProvider'
 import TaskPage from './TaskPage'
 import RequestPage from './requestpage'
+import RequestHistoryPage from './RequestHistoryPage'
+
 
 function App() {
   return (
@@ -23,9 +25,12 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/accessibility" element={<AccessibilityPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/request-history" element={<RequestHistoryPage />} />
           <Route path="/task/:taskId" element={<TaskPage />} />
           <Route path="/request" element={<RequestPage />} />
           <Route path ="/menu" element = {<Menu/>} />
+          <Route path="/request-history" element={<RequestHistoryPage />} />
+\
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

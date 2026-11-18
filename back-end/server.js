@@ -4,6 +4,8 @@ import express from "express";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import authRouter from "./routes/auth.js";
+import requestsRouter from "./routes/requests.js";
+
 
 dotenv.config();
 
@@ -18,7 +20,7 @@ app.get("/", (req, res) => {
   res.json({ message: "NextStep API is running." });
 });
 app.use("/api/auth", authRouter);
-
+app.use("/api/requests", requestsRouter);
 app.use((error, req, res, next) => {
   console.error(error);
   res.status(500).json({ message: "Internal server error" });
