@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fetchUserProfile } from './fakeApi'
 import useAccessibility from './useAccessibility'
 import './css/pages.css'
 
@@ -14,23 +13,67 @@ function ProfilePage() {
     const [isDirty, setIsDirty] = useState(false) // tracks the user editing the profile
     const navigate = useNavigate() //react navigation tool to move page to page
 
-    useEffect(() => {   //grabbing profile of fake user 
+    useEffect(() => {   //grabbing profile from back-end route
         let ignore = false
-        fetchUserProfile().then(user => {
-            if (!ignore) {
-                setSaved(user)
-                setForm(user)
-            }
-        })
+        fetch('http://localhost:3000/api/profile')
+            .then(response => {
+                //checking http req goes through
+                if (!response.ok) {
+                    throw new Error("failed request");
+                }
+                return response.json();
+            })
+            .then(user => {
+                if (!ignore) {
+                    setSaved(user)
+                    setForm({ ...user, password: '' })
+                }
+            })
+            .catch(error => {
+                if (!ignore) {
+                    console.error("Issue retrieving profile", error);
+                }
+            })
         return () => {
             ignore = true
         }
     }, [])
 
-    const handleSave = e => {   //tracking is save button appears 
+    const handleSave = async e => {   //tracking is save button appears
         e.preventDefault()
-        setSaved(form)
-        setIsDirty(false)
+
+        try {
+            const response = await fetch('http://localhost:3000/api/profile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: form.username,
+                    name: form.name,
+                    email: form.email,
+                    age: form.age
+                })
+
+            })
+            if (!response.ok) {
+                throw new Error('Failed to save profile');
+            }
+
+            const data = await response.json();
+
+            setSaved(data.profile);
+            setForm({ ...data.profile, password: '' });
+            setIsDirty(false);
+
+            alert('Profile updated successfully!');
+
+        } catch (error) {
+            console.error('Error saving profile:', error);
+            alert('Unable to save profile changes.');
+        }
+        //setSaved(form)
+        //setIsDirty(false)
     }
 
     const handleDelete = () => {    //tracks is user attempts to delete profile 
