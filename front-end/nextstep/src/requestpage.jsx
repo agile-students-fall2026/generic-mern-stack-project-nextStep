@@ -2,11 +2,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAccessibility from './useAccessibility';
 import './css/pages.css';
+import { useContext } from 'react';
+import AuthContext from './assets/AuthProvider';
+import api from './api';
 
 // Page where the user asks for a how-to we don't have yet.
 
+// Page where the user asks for a how-to we don't have yet.
 const RequestPage = () => {
     useAccessibility();
+    const { auth } = useContext(AuthContext);
+
+    async function sendRequest() {
+        await api.post('/requests', { text: comment }, {
+            headers: { Authorization: `Bearer ${auth.accessToken}` }
+        });
+        navigate('/request-history');
+    }
+    
 
     // keeps the text the user types. Needs useState because a regular
     // variable would go back to empty every time React redraws the page.
@@ -34,7 +47,7 @@ const RequestPage = () => {
                         onChange={(event) => setComment(event.target.value)}
                     />
 
-                    <button className="btn btn-primary" onClick={() => navigate(`/home`)}>Send</button>
+                    <button className="btn btn-primary" onClick={sendRequest}>Send</button>
                 </div>
             </main>
         </div>
