@@ -15,7 +15,7 @@ function ProfilePage() {
 
     useEffect(() => {   //grabbing profile from back-end route
         let ignore = false
-        fetch('http://localhost:3000/api/profile')
+        fetch('/api/profile')
             .then(response => {
                 //checking http req goes through
                 if (!response.ok) {
@@ -43,7 +43,7 @@ function ProfilePage() {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:3000/api/profile', {
+            const response = await fetch('/api/profile', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
