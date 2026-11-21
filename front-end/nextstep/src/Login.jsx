@@ -1,14 +1,19 @@
 import { useRef, useState, useEffect, useContext } from 'react';
 import AuthContext from "./assets/AuthProvider";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import useAccessibility from './useAccessibility';
 import './css/pages.css'
+import api from './api';
+
+const Login = () => {
+    useAccessibility();
 import axios from 'axios';
 const LOGIN_URL = '/auth';
 const Login = () => {
     useAccessibility();
 
     const { setAuth } = useContext(AuthContext);
+    const location = useLocation();
     const userRef = useRef();
     const errRef = useRef();
 
@@ -25,30 +30,18 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            );
+            const response = await api.post('/auth/login', { user, pwd });
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
-            setAuth({ user, roles, accessToken });
+            setAuth({ user: response.data.user, roles, accessToken });
             setUser('');
             setPwd('');
             setSuccess(true);
         } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response?.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-                // <Link to="/home">Go to Home</Link>
-            }
+            setErrMsg(
+                err?.response?.data?.message ??
+                (err?.response ? 'Login failed. Please try again.' : 'Unable to reach the server.'),
+            );
             errRef.current.focus();
         }
     }
@@ -74,6 +67,7 @@ const Login = () => {
                     ) : (
                         <section className="auth-section">
                             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                            {location.state?.message && <p role="status">{location.state.message}</p>}
                             <h1>Sign In</h1>
                             <form className="auth-form" onSubmit={handleSubmit}>
                                 <label className='field' htmlFor="username">Username:</label>
@@ -103,8 +97,7 @@ const Login = () => {
                                     value={pwd}
                                     required
                                 />
-                                {/* <button>Sign In</button> */}
-                                <Link className="btn btn-primary" to="/home"> Sign In </Link>
+                                <button className="btn btn-primary" type="submit">Sign In</button>
                             </form>
                             <p>
                                 Need an Account?<br />
