@@ -7,10 +7,7 @@ import api from './api';
 
 const Login = () => {
     useAccessibility();
-import axios from 'axios';
-const LOGIN_URL = '/auth';
-const Login = () => {
-    useAccessibility();
+
 
     const { setAuth } = useContext(AuthContext);
     const location = useLocation();
