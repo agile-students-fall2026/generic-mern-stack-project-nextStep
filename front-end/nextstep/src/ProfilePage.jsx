@@ -1,21 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import AuthContext from './assets/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import useAccessibility from './useAccessibility'
 import './css/pages.css'
 
 function ProfilePage() {
-    useAccessibility()  //loading the settings user inputed 
+    useAccessibility()  //loading the settings user inputed
 
-    //creating state variables for data this page will need 
-    const [saved, setSaved] = useState(null)    //saved profile 
+    //creating state variables for data this page will need
+    const [saved, setSaved] = useState(null)    //saved profile
     const [form, setForm] = useState(null)  //what user inputed [edited]
-    const [showPassword, setShowPassword] = useState(false) //to show or hide password 
+    const [showPassword, setShowPassword] = useState(false) //to show or hide password
     const [isDirty, setIsDirty] = useState(false) // tracks the user editing the profile
+    const { auth, setAuth } = useContext(AuthContext)    //reading logged in users data
     const navigate = useNavigate() //react navigation tool to move page to page
 
     useEffect(() => {   //grabbing profile from back-end route
         let ignore = false
-        fetch('/api/profile')
+        fetch('http://localhost:3001/api/profile', {
+            headers: {
+                'Authorization': `Bearer ${auth.accessToken}`
+            }
+        })
             .then(response => {
                 //checking http req goes through
                 if (!response.ok) {
@@ -37,16 +43,17 @@ function ProfilePage() {
         return () => {
             ignore = true
         }
-    }, [])
+    }, [auth?.accessToken])
 
-    const handleSave = async e => {   //tracking is save button appears
+    const handleSave = async e => {   //tracking save button appears
         e.preventDefault()
 
         try {
-            const response = await fetch('/api/profile', {
+            const response = await fetch('http://localhost:3001/api/profile', {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${auth.accessToken}`
                 },
                 body: JSON.stringify({
                     username: form.username,
@@ -76,18 +83,38 @@ function ProfilePage() {
         //setIsDirty(false)
     }
 
-    const handleDelete = () => {    //tracks is user attempts to delete profile 
-        if (window.confirm('Delete your profile? This cannot be undone.')) {
-            navigate('/login')   //navigates to home page 
+    const handleDelete = async () => {    //tracks is user attempts to delete profile
+        if (window.confirm('Are you sure you want to Delete your profile?')) {
+            try {
+                const response = await fetch('http://localhost:3001/api/profile', {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${auth.accessToken}`
+                    }
+                })
+                if (!response.ok) {
+                    throw new Error("Failed to delete profile")
+                }
+
+                //deleting users profile
+                setAuth({})
+
+                alert('Profile deleted successfully!')
+                navigate('/login')   //navigates to home page
+
+            } catch (error) {
+                console.error("Error deleting profile", error)
+                alert('Unable to delete profile')
+            }
         }
     }
 
-    const handleUsernameChange = e => { //updating username 
+    const handleUsernameChange = e => { //updating username
         setForm({ ...form, username: e.target.value })
         setIsDirty(true)
     }
 
-    const handleNameChange = e => { //updating name 
+    const handleNameChange = e => { //updating name
         setForm({ ...form, name: e.target.value })
         setIsDirty(true)
     }
@@ -97,7 +124,7 @@ function ProfilePage() {
         setIsDirty(true)
     }
 
-    const handleAgeChange = e => {  //updating age 
+    const handleAgeChange = e => {  //updating age
         setForm({ ...form, age: e.target.value })
         setIsDirty(true)
     }

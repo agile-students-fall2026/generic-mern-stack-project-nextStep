@@ -137,4 +137,31 @@ router.get("/me", async (req, res) => {
   });
 });
 
+//finding the registered account to edit
+export function getAccountById(id) {
+  return users.get(id)
+}
+
+//functino to update user profile
+export function updateAccountById(id, changes) {
+  const account = users.get(id)
+  if (!account) {
+    return null
+  }
+  //checks that users are not recreating other users name/email
+  const duplicate = [...users.values()].some(user =>
+    user.id !== id &
+    (user.username === changes.username || user.email == changes.email)
+  )
+  if (duplicate) {
+    return false
+  } Object.assign(account, changes)
+  return account
+}
+
+//function to deletes profile
+export function deleteAccountById(id) {
+  return users.delete(id)
+}
+
 export default router;
