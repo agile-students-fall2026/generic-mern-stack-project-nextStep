@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import authRouter from "./routes/auth.js";
 import requestsRouter from "./routes/requests.js";
 import profileRoutes from "./profileRoutes.js";
+import tasksRouter from "./routes/tasks.js";
 
 
 dotenv.config();
@@ -23,6 +24,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/requests", requestsRouter);
 app.use("/api/profile", profileRoutes);
+app.use("/api/tasks", tasksRouter);
+
 app.use((error, req, res, next) => {
   console.error(error);
   res.status(500).json({ message: "Internal server error" });

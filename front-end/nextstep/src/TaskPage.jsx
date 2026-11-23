@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import api from './api';
 import { useParams } from 'react-router-dom';
 import useAccessibility from './useAccessibility';
 import './css/pages.css';
@@ -9,8 +10,13 @@ const TaskPage = () => {
 
     // Reads the id out of the URL /task/youtube-fullscreen
     const { taskId } = useParams();
-    // Placeholder steps. Real screenshots come later.
-    const steps = ['Step 1', 'Step 2', 'Step 3'];
+    //state to hold the steps for the task
+    // setSteps is a function that updates the steps state. When you call setSteps, React will redraw the page with the new steps. 
+    const [steps, setSteps] = useState([]);
+
+    useEffect(() => {
+        api.get(`/tasks/${taskId}`).then((response) => setSteps(response.data.steps))
+    }, [taskId]);
     // useState remembers which step is showing. A plain variable would reset on every redraw.
     const [current, setCurrent] = useState(0);
     function nextStep() {
@@ -20,6 +26,11 @@ const TaskPage = () => {
         }
     }
 
+    // If the steps are not loaded, show a loading message.
+    if (steps.length === 0) {
+        return <p>Loading guide...</p>;
+    }
+    
     return (
         <div className="task-container">
             <h1>Task: {taskId}</h1>
