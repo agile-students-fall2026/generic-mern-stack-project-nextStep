@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import authRouter from "./routes/auth.js";
 import requestsRouter from "./routes/requests.js";
+import tasksRouter from "./routes/tasks.js";
 import profileRoutes from "./routes/profile.js";
 
 
@@ -23,6 +24,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/requests", requestsRouter);
 app.use("/api/profile", profileRoutes);
+app.use("/api/tasks", tasksRouter);
+
 app.use((error, req, res, next) => {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
