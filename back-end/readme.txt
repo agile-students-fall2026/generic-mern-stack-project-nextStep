@@ -24,6 +24,15 @@ port 3000. The Vite development server proxies `/api` requests to
 For production, set a private `JWT_SECRET` of at least 32 bytes; never commit
 secrets.
 
+### Run authentication tests
+
+After installing the backend dependencies, run the signup and sign-in tests from
+the repository root with:
+
+```sh
+npx mocha back-end/test/auth.test.js
+```
+
 ### Reference tutorial and documentation
 
 - [Express routing](https://expressjs.com/en/guide/routing.html)

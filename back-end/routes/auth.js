@@ -90,7 +90,6 @@ router.post("/login", async (req, res) => {
     jwtSecret,
     { expiresIn: "1h" },
   );
-
   return res.json({
     accessToken,
     tokenType: "Bearer",
