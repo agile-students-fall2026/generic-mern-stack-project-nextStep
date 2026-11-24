@@ -1,13 +1,13 @@
 import { useState,useEffect } from 'react';
 import api from './api';
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import useAccessibility from './useAccessibility';
 import './css/pages.css';
 
 // Shows one step at a time for the task the user picked. Clicking the box moves on.
 const TaskPage = () => {
     useAccessibility();
-
+    const navigate = useNavigate();
     // Reads the id out of the URL /task/youtube-fullscreen
     const { taskId } = useParams();
     //state to hold the steps for the task
@@ -33,7 +33,9 @@ const TaskPage = () => {
     
     return (
         <div className="task-container">
+
             <h1>Task: {taskId}</h1>
+            <button type='button' className='back-button' onClick={() => navigate('/home')}>Back to Home</button>
 
             <div className="step-screen" onClick={nextStep}>
                 <p>{steps[current]}</p>
