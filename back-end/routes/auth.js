@@ -49,6 +49,12 @@ router.post("/signup", async (req, res) => {
     passwordHash,
     age: parsedAge,
     roles: ["user"],
+    //adding accessibilities track
+    accessibility: {
+      sizeIndex: 1,
+      darkMode: false,
+      lowContrast: false,
+    }
   };
   users.set(account.id, account);
 

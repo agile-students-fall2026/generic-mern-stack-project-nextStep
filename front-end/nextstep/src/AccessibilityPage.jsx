@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import './css/pages.css'
 
 function AccessibilityPage() {
-    const [settings, update] = useAccessibility()  //loading the settings user inputed
+    const [settings, update, loaded, error] = useAccessibility()  //loading the settings user inputed
     const navigate = useNavigate()
 
 
@@ -19,6 +19,8 @@ function AccessibilityPage() {
                 <p className="page-description">
                     Customize NextStep to make it easier for you to read and use.
                 </p>
+                {!loaded && <p>Loading accessbility preferences...</p>}
+                {error && <p role="alert">{error}</p>}
                 {/*fontsize is controlled*/}
                 <div className="accessibility-options">
                     <section className="accessibility-option">
@@ -26,6 +28,7 @@ function AccessibilityPage() {
                         <select
                             className="accessibility-select"
                             value={settings.sizeIndex}  //{/*tracks users selection and converts it to array index for font size */}
+                            disabled={!loaded}
                             onChange={e => update({ sizeIndex: Number(e.target.value) })}>
                             {FONT_SIZES.map((size, index) => (
                                 <option key={size} value={index}>
@@ -44,6 +47,7 @@ function AccessibilityPage() {
                                 className="accessibility-checkbox"
                                 type="checkbox"
                                 checked={settings.darkMode}
+                                disabled={!loaded}
                                 onChange={e => update({ darkMode: e.target.checked })} />
                             On
                         </label>
@@ -56,6 +60,7 @@ function AccessibilityPage() {
                             <input
                                 className="accessibility-checkbox"
                                 type="checkbox"
+                                disabled={!loaded}
                                 checked={settings.lowContrast}
                                 onChange={e => update({ lowContrast: e.target.checked })} />
                             On
