@@ -206,4 +206,72 @@ router.delete('/', (req, res) => {
 
 
 })
+
+//tracking users accessibiliy preferences 
+const defaultAccessibility = {
+    sizeIndex: 1,
+    darkMode: false,
+    lowContrast: false
+}
+
+function authenticateAccessibility(req, res, next) {
+    const authorization = req.get("Authorization") ?? ""
+    const token = authorization.match(/^Bearer ([^\s]+)$/i)
+
+    if (!token) {
+        return res.status(401).json({
+            error: "Authentication required",
+        })
+    }
+
+    try {
+        const jwtSecret = process.env.JWT_SECRET ?? "development-only-secret-change-before-deploy"
+        const decoded = jwt.verify(token[1], jwtSecret)
+        const account = getAccountById(decoded.sub)
+
+        if (!account) {
+            return res.status(401).json({
+                error: "Account not found"
+            })
+        }
+        req.account = account
+        next()
+    }
+    catch (error) {
+        if (error instanceof jwt.JsonWebTokenError) {
+            return res.status(401).json({
+                error: "Invalid token",
+            })
+        }
+        next(error)
+    }
+}
+//getting the users preferences on accessibility 
+router.get("/accessibility", authenticateAccessibility, (req, res) => {
+    res.json({
+        accessibility: req.account.accessibility ?? defaultAccessibility,
+
+    })
+})
+//putting the users updated preferences on accessibility 
+router.put("/accessibility", authenticateAccessibility, (req, res) => {
+    const { sizeIndex, darkMode, lowContrast } = req.body ?? {}
+
+    //makings sure inputs are valid 
+    if (!Number.isInteger(sizeIndex) || sizeIndex < 0 || sizeIndex > 4 || typeof darkMode !== "boolean" || typeof lowContrast !== "boolean") {
+        return res.status(400).json({
+            error: "Invalid accessibility settings"
+        })
+    }
+    req.account.accessibility = {
+        sizeIndex,
+        darkMode,
+        lowContrast
+    }
+    res.json({
+        message: "Preferences saved!",
+        accessibility: req.account.accessibility,
+    })
+})
+
 export default router
