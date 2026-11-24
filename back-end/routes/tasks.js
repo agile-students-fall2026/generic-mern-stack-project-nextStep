@@ -14,7 +14,7 @@ router.get('/:taskId', (req, res) => {
         `${taskId} Step 3`,
 
     ]
-    return res.jason({ taskId: taskId, steps: steps });
+    return res.json({ taskId: taskId, steps: steps });
 });
 
 export default router;
