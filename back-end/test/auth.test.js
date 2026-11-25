@@ -7,6 +7,31 @@ describe("authentication API", function () {
   let baseUrl;
   let account;
 
+  function signIn(password = account.password) {
+    return fetch(`${baseUrl}/login`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ user: account.username, pwd: password }),
+    });
+  }
+
+  function updatePassword(accessToken, password) {
+    return fetch(baseUrl.replace("/api/auth", "/api/profile"), {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        username: account.username,
+        name: account.name,
+        email: account.email,
+        age: account.age,
+        password,
+      }),
+    });
+  }
+
   before(async function () {
     server = app.listen(0);
     await new Promise((resolve, reject) => {
@@ -92,6 +117,30 @@ describe("authentication API", function () {
       assert.equal(profile.user.id, body.user.id);
     });
   }
+
+  it("rejects a new password shorter than eight characters", async function () {
+    const loginResponse = await signIn();
+    const { accessToken } = await loginResponse.json();
+    const response = await updatePassword(accessToken, "short");
+
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).error, "Please input valid information");
+    assert.equal((await signIn()).status, 200);
+  });
+
+  it("updates the password and uses the new password for sign-in", async function () {
+    const loginResponse = await signIn();
+    const { accessToken } = await loginResponse.json();
+    const newPassword = "a-new-secure-password";
+    const updateResponse = await updatePassword(accessToken, newPassword);
+
+    assert.equal(updateResponse.status, 200);
+    const updateBody = await updateResponse.json();
+    assert.equal(updateBody.profile.username, account.username);
+    assert.equal("passwordHash" in updateBody.profile, false);
+    assert.equal((await signIn()).status, 401);
+    assert.equal((await signIn(newPassword)).status, 200);
+  });
 
   it("rejects an incorrect password", async function () {
     const response = await fetch(`${baseUrl}/login`, {

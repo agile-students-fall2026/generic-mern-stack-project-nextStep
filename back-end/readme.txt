@@ -4,6 +4,9 @@ The Express API implements:
 
 - `POST /api/auth/signup` with `name`, `username`, `email`, `password`, and `age`.
 - `POST /api/auth/login` with `user` (username or email) and `pwd`.
+- `PUT /api/profile` to update profile details and optionally set a new password.
+  Leave the password field blank to keep the current password; new passwords
+  must be at least 8 characters and are stored as bcrypt hashes.
 
 Users are stored in a fake in-memory collection for development, passwords
 are hashed with bcrypt, and successful logins return a short-lived JWT in
@@ -27,10 +30,10 @@ secrets.
 ### Run authentication tests
 
 After installing the backend dependencies, run the signup and sign-in tests from
-the repository root with:
+`back-end/` with:
 
 ```sh
-npx mocha back-end/test/auth.test.js
+npx --yes mocha@11 test/auth.test.js
 ```
 
 ### Reference tutorial and documentation

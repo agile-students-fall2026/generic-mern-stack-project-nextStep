@@ -59,12 +59,14 @@ function ProfilePage() {
                     username: form.username,
                     name: form.name,
                     email: form.email,
-                    age: form.age
+                    age: form.age,
+                    ...(form.password ? { password: form.password } : {})
                 })
 
             })
             if (!response.ok) {
-                throw new Error('Failed to save profile');
+                const error = await response.json();
+                throw new Error(error.error ?? 'Failed to save profile');
             }
 
             const data = await response.json();
@@ -77,7 +79,7 @@ function ProfilePage() {
 
         } catch (error) {
             console.error('Error saving profile:', error);
-            alert('Unable to save profile changes.');
+            alert(error instanceof Error ? error.message : 'Unable to save profile changes.');
         }
         //setSaved(form)
         //setIsDirty(false)
@@ -202,6 +204,9 @@ function ProfilePage() {
                                 className="form-input"
                                 name="password"
                                 type={showPassword ? "text" : "password"}
+                                autoComplete="new-password"
+                                minLength={8}
+                                placeholder="Leave blank to keep current password"
                                 value={form.password}
                                 onChange={e => {
                                     setForm({ ...form, password: e.target.value })
