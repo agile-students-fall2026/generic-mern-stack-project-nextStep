@@ -18,7 +18,7 @@ nextStep was inspired from previous experiences with watching older folk struggl
 * Jasmin Contreras - github -> jsc9859
 * Solomon Kim - github -> Solirss
 * Nalin - Github -> NalNar
-* Hanson - Github -> Hansonhzh
+
 
 Link to contribution is is [HERE](https://github.com/agile-students-fall2026/generic-mern-stack-project-nextStep/blob/master/CONTRIBUTING.md)
 
