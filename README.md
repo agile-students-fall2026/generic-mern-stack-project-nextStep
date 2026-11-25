@@ -38,3 +38,16 @@ The backend uses fake in-memory users, which reset when the backend restarts.
 See [back-end/readme.txt](./back-end/readme.txt) for endpoint details and
 references to the [Express routing guide](https://expressjs.com/en/guide/routing.html)
 and [JWT introduction](https://jwt.io/introduction).
+
+## Running the tests
+
+The back-end has unit tests written with mocha and chai. c8 measures code coverage.
+You do not need to start the server first, because the tests start their own copy.
+
+1. Go to the back-end folder: `cd back-end`
+2. Install packages (first time only): `npm install`
+3. Run all tests: `npm test`
+4. See code coverage: `npm run coverage`
+
+Test files are in `back-end/test/`.
+
