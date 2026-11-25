@@ -1,4 +1,5 @@
 import express from 'express';
+import bcrypt from 'bcryptjs';
 import profiles from '../mockData/profiles.json' with { type: 'json' } //connecting to the mock data
 import jwt from 'jsonwebtoken'
 import { getAccountById, updateAccountById, deleteAccountById } from './auth.js'
@@ -66,7 +67,7 @@ router.get('/', (req, res) => {
 })
 
 //put method to update profile info
-router.put('/', (req, res) => {
+router.put('/', async (req, res) => {
 
     //function to work with mockaroo data
     //      const { username, name, email, age } = req.body ?? {}
@@ -110,11 +111,16 @@ router.put('/', (req, res) => {
                 error: "Profile does not exist"
             })
         }
-        const { username, name, email, age } = req.body ?? {}
+        const { username, name, email, age, password } = req.body ?? {}
         const updatedUsername = typeof username == "string" ? username.trim().toLowerCase() : ''
         const updatedName = typeof name === 'string' ? name.trim() : ''
         const updatedEmail = typeof email === 'string' ? email.trim().toLowerCase() : ''
         const updatedAge = Number(age)
+        const passwordIsValid = password === undefined || (
+            typeof password === 'string' &&
+            password.length >= 8 &&
+            Buffer.byteLength(password, 'utf8') <= 72
+        )
 
         if (
             !/^[a-zA-Z0-9_]{3,30}$/.test(updatedUsername) ||
@@ -123,19 +129,23 @@ router.put('/', (req, res) => {
             updatedEmail.length > 254 ||
             age === undefined || age === '' ||
             !Number.isInteger(updatedAge) ||
-            updatedAge < 0 || updatedAge > 130
+            updatedAge < 0 || updatedAge > 130 ||
+            !passwordIsValid
         ) {
             return res.status(400).json({
                 error: "Please input valid information"
             })
         }
-        const updatedAccount = updateAccountById(account.id, {
+        const changes = {
             username: updatedUsername,
             name: updatedName,
             email: updatedEmail,
             age: updatedAge
-
-        })
+        }
+        if (password !== undefined) {
+            changes.passwordHash = await bcrypt.hash(password, 12)
+        }
+        const updatedAccount = updateAccountById(account.id, changes)
         if (updatedAccount === false) {
             return res.status(409).json({
                 error: "Username or email is already used"

@@ -52,5 +52,4 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1
         process.exitCode = 1;
     }
 }
-
 export default app;
