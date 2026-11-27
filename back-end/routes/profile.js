@@ -111,16 +111,20 @@ router.put('/', async (req, res) => {
                 error: "Profile does not exist"
             })
         }
-        const { username, name, email, age, password } = req.body ?? {}
+        const { username, name, email, age } = req.body ?? {}
+
+        if (
+            Object.hasOwn(req.body ?? {}, "password") ||
+            Object.hasOwn(req.body ?? {}, "passwordHash")
+        ) {
+            return res.status(400).json({
+                error: "Password change requires current password"
+            })
+        }
         const updatedUsername = typeof username == "string" ? username.trim().toLowerCase() : ''
         const updatedName = typeof name === 'string' ? name.trim() : ''
         const updatedEmail = typeof email === 'string' ? email.trim().toLowerCase() : ''
         const updatedAge = Number(age)
-        const passwordIsValid = password === undefined || (
-            typeof password === 'string' &&
-            password.length >= 8 &&
-            Buffer.byteLength(password, 'utf8') <= 72
-        )
 
         if (
             !/^[a-zA-Z0-9_]{3,30}$/.test(updatedUsername) ||
@@ -129,8 +133,7 @@ router.put('/', async (req, res) => {
             updatedEmail.length > 254 ||
             age === undefined || age === '' ||
             !Number.isInteger(updatedAge) ||
-            updatedAge < 0 || updatedAge > 130 ||
-            !passwordIsValid
+            updatedAge < 0 || updatedAge > 130
         ) {
             return res.status(400).json({
                 error: "Please input valid information"
@@ -142,9 +145,7 @@ router.put('/', async (req, res) => {
             email: updatedEmail,
             age: updatedAge
         }
-        if (password !== undefined) {
-            changes.passwordHash = await bcrypt.hash(password, 12)
-        }
+
         const updatedAccount = updateAccountById(account.id, changes)
         if (updatedAccount === false) {
             return res.status(409).json({
@@ -224,7 +225,7 @@ const defaultAccessibility = {
     lowContrast: false
 }
 
-function authenticateAccessibility(req, res, next) {
+function authenticateAccount(req, res, next) {
     const authorization = req.get("Authorization") ?? ""
     const token = authorization.match(/^Bearer ([^\s]+)$/i)
 
@@ -257,14 +258,14 @@ function authenticateAccessibility(req, res, next) {
     }
 }
 //getting the users preferences on accessibility 
-router.get("/accessibility", authenticateAccessibility, (req, res) => {
+router.get("/accessibility", authenticateAccount, (req, res) => {
     res.json({
         accessibility: req.account.accessibility ?? defaultAccessibility,
 
     })
 })
 //putting the users updated preferences on accessibility 
-router.put("/accessibility", authenticateAccessibility, (req, res) => {
+router.put("/accessibility", authenticateAccount, (req, res) => {
     const { sizeIndex, darkMode, lowContrast } = req.body ?? {}
 
     //makings sure inputs are valid 
@@ -281,6 +282,50 @@ router.put("/accessibility", authenticateAccessibility, (req, res) => {
     res.json({
         message: "Preferences saved!",
         accessibility: req.account.accessibility,
+    })
+})
+
+router.put("/change-password", authenticateAccount, async (req, res) => {
+    const { currentPassword, newPassword } = req.body ?? {}
+    if (
+        typeof currentPassword !== "string" ||
+        currentPassword.length == 0 ||
+        Buffer.byteLength(currentPassword, "utf8") > 72 ||
+        typeof newPassword !== "string" ||
+        newPassword.length < 8 ||
+        Buffer.byteLength(newPassword, "utf8") > 72
+    ) {
+        return res.status(400).json({
+            error: "Invalid Password"
+        })
+    }
+    const account = req.account
+    const passwordMatches = await bcrypt.compare(
+        currentPassword,
+        account.passwordHash
+    )
+
+    if (!passwordMatches) {
+        return res.status(401).json({
+            error: "Incorrect current password"
+        })
+    }
+    if (currentPassword === newPassword) {
+        return res.status(400).json({
+            error: "New password cannot be the same as current password"
+        })
+    }
+    const newPasswordHash = await bcrypt.hash(newPassword, 12)
+    const updatedAccount = updateAccountById(account.id, {
+        passwordHash: newPasswordHash
+    })
+    if (!updatedAccount) {
+        return res.status(500).json({
+            error: "Password change failed"
+        })
+    }
+    return res.status(200).json({
+        message: "Password changed successfully"
     })
 })
 

@@ -13,6 +13,11 @@ function ProfilePage() {
     const [showPassword, setShowPassword] = useState(false) //to show or hide password
     const [isDirty, setIsDirty] = useState(false) // tracks the user editing the profile
     const { auth, setAuth } = useContext(AuthContext)    //reading logged in users data
+    const [passwordForm, setPasswordForm] = useState({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    })
     const navigate = useNavigate() //react navigation tool to move page to page
 
     useEffect(() => {   //grabbing profile from back-end route
@@ -32,7 +37,7 @@ function ProfilePage() {
             .then(user => {
                 if (!ignore) {
                     setSaved(user)
-                    setForm({ ...user, password: '' })
+                    setForm(user)
                 }
             })
             .catch(error => {
@@ -44,6 +49,44 @@ function ProfilePage() {
             ignore = true
         }
     }, [auth?.accessToken])
+
+    const handleChangePassword = async (e) => {
+        e.preventDefault()
+        const { currentPassword, newPassword, confirmPassword } = passwordForm
+        if (newPassword !== confirmPassword) {
+            alert("New password does not match")
+            return
+        }
+        try {
+            const response = await fetch(
+                'http://localhost:3001/api/profile/change-password',
+                {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${auth.accessToken}`
+                    },
+                    body: JSON.stringify({
+                        currentPassword,
+                        newPassword
+                    })
+                }
+            )
+            const data = await response.json()
+            if (!response.ok) {
+                alert(data.error || "Password chnge failed")
+                return
+            }
+            alert("Password change succesfully!")
+            setPasswordForm({
+                currentPassword: '',
+                newPassword: '',
+                confirmPassword: ''
+            })
+        } catch (error) {
+            alert("Unable to change password")
+        }
+    }
 
     const handleSave = async e => {   //tracking save button appears
         e.preventDefault()
@@ -59,8 +102,7 @@ function ProfilePage() {
                     username: form.username,
                     name: form.name,
                     email: form.email,
-                    age: form.age,
-                    ...(form.password ? { password: form.password } : {})
+                    age: form.age
                 })
 
             })
@@ -72,7 +114,7 @@ function ProfilePage() {
             const data = await response.json();
 
             setSaved(data.profile);
-            setForm({ ...data.profile, password: '' });
+            setForm(data.profile);
             setIsDirty(false);
 
             alert('Profile updated successfully!');
@@ -196,7 +238,7 @@ function ProfilePage() {
                         />
                     </label>
 
-                    <label className="field">
+                    {/* <label className="field">
                         <span className="field-label">Change Password</span>
 
                         <div className="field-row">
@@ -222,7 +264,7 @@ function ProfilePage() {
                                 {showPassword ? "Hide" : "Show"}
                             </button>
                         </div>
-                    </label>
+                    </label> */}
 
                     {isDirty && (
                         <button type="submit" className="btn btn-primary">
@@ -231,6 +273,62 @@ function ProfilePage() {
                     )}
 
                 </form>
+                <section className="password-section">
+                    <h2>Change Password</h2>
+                    <form className="profile-form" onSubmit={handleChangePassword}>
+                        <label className="field">
+                            <span className='field-label'>Current Password</span>
+                            <input
+                                className="form-input"
+                                type={showPassword ? "text" : "password"}
+                                value={passwordForm.currentPassword}
+                                onChange={e => setPasswordForm({
+                                    ...passwordForm,
+                                    currentPassword: e.target.value
+                                })}
+                                autoComplete="current-password"
+                                required
+                            />
+                        </label>
+                        <label className="field">
+                            <span className="field-label">New Password</span>
+                            <input
+                                className="form-input"
+                                type={showPassword ? "text" : "password"}
+                                value={passwordForm.newPassword}
+                                onChange={e => setPasswordForm({
+                                    ...passwordForm,
+                                    newPassword: e.target.value
+                                })}
+                                autoComplete="new-password"
+                                minLength={8}
+                                required
+                            />
+                        </label>
+                        <label className='field'>
+                            <span className='field-label'>Confirm New Password</span>
+                            <input
+                                className="form-input"
+                                type={showPassword ? "text" : "password"}
+                                value={passwordForm.confirmPassword}
+                                onChange={e => setPasswordForm({
+                                    ...passwordForm,
+                                    confirmPassword: e.target.value
+                                })}
+                                autoComplete="new-password"
+                                required
+                            />
+                        </label>
+                        <button type="button" className="link-btn" onClick={() => setShowPassword(!showPassword)}>
+                            {showPassword ? "Hide Passwords" : "Show Passwords"}
+                        </button>
+                        <button type="submit" className="btn btn-primary">
+                            Update Password
+                        </button>
+                    </form>
+
+
+                </section>
                 {/*//delete button*/}
                 <button
                     type="button"
